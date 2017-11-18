@@ -46,14 +46,14 @@ class UserManager(models.Manager):
                 lastName = postData['lName'],
                 email = postData['email'],
                 birthday = postData['birthday'],
-                password = hashedPsw
+                password = hashedPsw,
+                gender = postData['Gender']
             )
             b.save()
         return errors
     def validateLogin(self, postData):
         errors={}
         b = User.objects.filter(email = postData['email'])
-        print b.values()[0]['password']
         if b:
             hashPasw = b.values()[0]['password']
             if not bcrypt.checkpw(postData['pasw'].encode(),b.values()[0]['password'].encode()):
@@ -66,6 +66,7 @@ class User(models.Model):
     firstName = models.CharField(max_length=20)
     lastName= models.CharField(max_length=20)
     email = models.CharField(max_length=40)
+    gender = models.CharField(max_length=10)
     birthday = models.DateField()
     password = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add = True)

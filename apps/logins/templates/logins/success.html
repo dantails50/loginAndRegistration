@@ -1,7 +1,11 @@
 <h1>Welcome, {{user.firstName}} {{user.lastName}}</h1>
 
 <h3 style="color:green">You Have succesfully created an account or logged in!</h3>
-
+{% if user.gender == "Male" %}
+<h3>Welcome Dood!</h3>
+{% elif user.gender == "Female" %}
+<h3>Welcoem Doodette!</h3>
+{% endif %}
 <form action="/logout" method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-secondary">Logout</button>
